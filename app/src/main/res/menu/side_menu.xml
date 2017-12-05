@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btnPresentacion"
+        android:orderInCategory="100"
+        android:title="Presentacion" />
+
+    <item
+        android:id="@+id/btnDisenos"
+        android:orderInCategory="100"
+        android:title="Diseños" />
+
+    <item
+        android:id="@+id/btnContactanos"
+        android:orderInCategory="100"
+        android:title="Contáctanos"/>
+
+    <item
+        android:id="@+id/btnRedes"
+        android:orderInCategory="100"
+        android:title="Redes sociales" />
+
+</menu>

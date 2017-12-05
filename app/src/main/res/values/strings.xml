@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Mon.Code</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="Menu_entries">
+        <item>Presentación</item>
+        <item>Diseños</item>
+        <item>Contáctanos</item>
+        <item>Redes sociales</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+
+</resources>
