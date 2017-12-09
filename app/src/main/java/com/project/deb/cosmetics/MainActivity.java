@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = new MainFragment();
         inflateFragment(fragment);
 
+
+
         drawerListViewItems = getResources().getStringArray(R.array.Menu_entries);
 
         drawerListView.setAdapter(new ArrayAdapter<String>(
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        drawerListView.setSelection(0);
+
 
         ImageView btnmenu = (ImageView) findViewById(R.id.btnMenu);
         btnmenu.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private void selectItem(int pos){
 
         if(pos == 0){//presentacion
-            Fragment frag = new PresentacionFragment();
+            Fragment frag = new MainFragment();
             inflateFragment(frag);
         }
         if(pos == 1){//disenos

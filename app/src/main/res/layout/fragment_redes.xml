@@ -25,22 +25,25 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/fblogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_facebook_logotype_button"
-                android:paddingBottom="30dp"/>
+                android:paddingBottom="40dp"/>
 
             <ImageView
+                android:id="@+id/pintlogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_pinterest_logo"
-                android:paddingBottom="30dp"/>
+                android:paddingBottom="40dp"/>
 
             <ImageView
+                android:id="@+id/iglogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_twitter_logo_silhouette"
-                android:paddingBottom="30dp"/>
+                android:src="@drawable/ic_instagram_logo"
+                android:paddingBottom="40dp"/>
 
         </LinearLayout>
     </LinearLayout>
