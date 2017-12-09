@@ -16,27 +16,37 @@
             android:padding="16dp">
 
             <TextView
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mon.Code Store"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 android:paddingBottom="8dp"/>
 
             <TextView
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Telefono: 999999cito"
-                android:paddingBottom="8dp"/>
+                android:paddingBottom="8dp"
+                android:textSize="16sp"/>
 
             <TextView
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Correo: correo@correito.com"
+                android:textSize="16sp"
                 android:paddingBottom="8dp"/>
 
             <TextView
+                android:layout_gravity="center_horizontal"
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jr. Shell 666"
+                android:text="Av. Primavera 1965, Santiago de Surco"
                 android:paddingBottom="8dp"/>
 
         </LinearLayout>

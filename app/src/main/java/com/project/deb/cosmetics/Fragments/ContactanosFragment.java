@@ -64,7 +64,7 @@ public class ContactanosFragment extends Fragment implements OnMapReadyCallback{
 
         MapsInitializer.initialize(getContext());
 
-        LatLng ll = new LatLng(-12.122838, -77.029972);
+        LatLng ll = new LatLng(-12.073331,-77.0791072);
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         googleMap.addMarker(new MarkerOptions().position(ll));
