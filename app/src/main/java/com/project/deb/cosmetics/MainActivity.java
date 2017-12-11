@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        drawerListView.setSelection(0);
+        drawerListView.setItemChecked(0, true);
 
 
         ImageView btnmenu = (ImageView) findViewById(R.id.btnMenu);
