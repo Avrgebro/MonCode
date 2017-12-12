@@ -2,6 +2,7 @@ package com.project.deb.cosmetics.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.project.deb.cosmetics.Adapters.DesignAdapter;
+import com.project.deb.cosmetics.Interfaces.OnLoadMoreListener;
 import com.project.deb.cosmetics.Model.Design;
 import com.project.deb.cosmetics.R;
 
@@ -23,7 +25,11 @@ public class DisenosFragment extends Fragment {
 
     private View view;
     private RecyclerView rv;
+    private ArrayList<Design> lafirme;
 
+    private DesignAdapter da;
+
+    public static int pageNumber;
     public DisenosFragment() {
         // Required empty public constructor
     }
@@ -37,8 +43,20 @@ public class DisenosFragment extends Fragment {
 
         rv = (RecyclerView) view.findViewById(R.id.RView);
         rv.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
+        rv.setLayoutManager(llm);
 
-        List<Design> items = new ArrayList<Design>();
+        pageNumber = 1;
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        final ArrayList<Design> items = new ArrayList<Design>();
+        lafirme = new ArrayList<Design>();
 
         items.add(new Design(R.drawable.absorb, "Absorb" ));//absorb
         items.add(new Design(R.drawable.mesh, "Mesh" ));//mesh
@@ -53,18 +71,27 @@ public class DisenosFragment extends Fragment {
         items.add(new Design(R.drawable.labyrinth, "Labyrinth" ));//labyrinth
         items.add(new Design(R.drawable.the_fall, "The fall" ));//thefall
 
-        DesignAdapter da = new DesignAdapter(items);
+        lafirme.add(items.get(0));
+        lafirme.add(items.get(1));
+        lafirme.add(items.get(2));
+
+        da = new DesignAdapter(items, rv);
 
         rv.setAdapter(da);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
-        //llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rv.setLayoutManager(llm);
+        da.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
 
+                int size = lafirme.size();
 
+                int toadd = 3;
 
+                if((size + 3) > 12) toadd = 12 - size;
 
-        return view;
+                for(int i=1 ; i<toadd; i++) lafirme.add(items.get(lafirme.size() + i));
+
+            }
+        });
     }
-
 }

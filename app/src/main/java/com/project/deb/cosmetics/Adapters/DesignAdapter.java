@@ -1,15 +1,18 @@
 package com.project.deb.cosmetics.Adapters;
 
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.view.View;
 
 import com.project.deb.cosmetics.Model.Design;
 import com.project.deb.cosmetics.R;
+import com.project.deb.cosmetics.Interfaces.OnLoadMoreListener;
 
 import java.util.List;
 
@@ -20,15 +23,25 @@ import java.util.List;
  * Created by jose on 12/11/17.
  */
 
-public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.MyViewHolder> {
+public class DesignAdapter extends RecyclerView.Adapter {
 
     private List<Design> designs;
+
+    private final int VIEW_ITEM = 1;
+    private final int VIEW_PROG = 0;
+
+    private int visibleThreshold = 3;
+    private int lastVisibleItem, totalItemCount;
+    private boolean loading;
+    private OnLoadMoreListener onLoadMoreListener;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView nomTV;
         private ImageView imgIV;
         private View viewV;
         private CardView cv;
+
+
 
         public MyViewHolder(View view){
             super(view);
@@ -40,8 +53,54 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.MyViewHold
 
     }
 
-    public DesignAdapter(List<Design> items){
+    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
+        public ProgressBar progressBar;
+
+        public ProgressViewHolder(View v) {
+            super(v);
+            progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+        }
+    }
+
+    public DesignAdapter(List<Design> items, RecyclerView recyclerView){
         this.designs = items;
+
+        if(recyclerView.getLayoutManager() instanceof LinearLayoutManager){
+            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    totalItemCount = linearLayoutManager.getItemCount();
+                    lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
+                    if(!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)){
+                        if(onLoadMoreListener != null){
+                            onLoadMoreListener.onLoadMore();
+                        }
+                    }
+
+                    loading = true;
+
+                }
+            });
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return designs.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+    }
+
+    public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
+        this.onLoadMoreListener = onLoadMoreListener;
+    }
+
+    public void setLoaded() {
+        loading = false;
     }
 
     @Override
@@ -50,16 +109,34 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.MyViewHold
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_item,parent, false);
-        return new MyViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        RecyclerView.ViewHolder vh;
+        if(viewType == VIEW_ITEM){
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.cardview_item,parent, false);
+
+            vh = new MyViewHolder(v);
+        }else {
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.progressbar,parent, false);
+
+            vh = new ProgressViewHolder(v);
+        }
+
+        return vh;
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.nomTV.setText(designs.get(position).getName());
-        holder.imgIV.setImageResource(designs.get(position).getResourceID());
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if(holder instanceof MyViewHolder){
+            ((MyViewHolder)holder).nomTV.setText(designs.get(position).getName());
+            ((MyViewHolder)holder).imgIV.setImageResource(designs.get(position).getResourceID());
+        }else{
+            ((ProgressViewHolder)holder).progressBar.setIndeterminate(true);
+        }
+
     }
 
     @Override
