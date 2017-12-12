@@ -28,7 +28,7 @@
                 android:id="@+id/fblogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_facebook_logotype_button"
+                android:src="@drawable/ic_facebook_social_symbol"
                 android:paddingBottom="40dp"/>
 
             <ImageView
