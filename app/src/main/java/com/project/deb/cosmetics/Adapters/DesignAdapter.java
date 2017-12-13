@@ -1,5 +1,6 @@
 package com.project.deb.cosmetics.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.project.deb.cosmetics.Model.Design;
 import com.project.deb.cosmetics.R;
 import com.project.deb.cosmetics.Interfaces.OnLoadMoreListener;
@@ -26,6 +28,7 @@ import java.util.List;
 public class DesignAdapter extends RecyclerView.Adapter {
 
     private List<Design> designs;
+    private Context context;
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
@@ -62,9 +65,9 @@ public class DesignAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public DesignAdapter(List<Design> items, RecyclerView recyclerView){
+    public DesignAdapter(List<Design> items, RecyclerView recyclerView, Context context){
         this.designs = items;
-
+        this.context = context;
         if(recyclerView.getLayoutManager() instanceof LinearLayoutManager){
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
@@ -132,7 +135,9 @@ public class DesignAdapter extends RecyclerView.Adapter {
 
         if(holder instanceof MyViewHolder){
             ((MyViewHolder)holder).nomTV.setText(designs.get(position).getName());
-            ((MyViewHolder)holder).imgIV.setImageResource(designs.get(position).getResourceID());
+            //((MyViewHolder)holder).imgIV.setImageResource(designs.get(position).getResourceID());
+            Glide.with(this.context).load(designs.get(position).getResourceID()).into(((MyViewHolder)holder).imgIV);
+
         }else{
             ((ProgressViewHolder)holder).progressBar.setIndeterminate(true);
         }

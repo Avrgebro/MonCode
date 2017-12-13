@@ -75,7 +75,7 @@ public class DisenosFragment extends Fragment {
         lafirme.add(items.get(1));
         lafirme.add(items.get(2));
 
-        da = new DesignAdapter(items, rv);
+        da = new DesignAdapter(items, rv, this.getContext());
 
         rv.setAdapter(da);
 
